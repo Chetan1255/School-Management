@@ -1,0 +1,97 @@
+{% extends "accounts/base_admin.html" %}
+{% block content %}
+
+<style>
+.card{
+  max-width:700px;
+  margin:auto;
+  background:#fff;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+.form-group{ margin-bottom:15px; }
+label{ font-weight:600; display:block; margin-bottom:6px; }
+input, select, textarea{
+  width:100%;
+  padding:10px;
+  border-radius:6px;
+  border:1px solid #ccc;
+}
+.readonly{
+  background:#f3f4f6;
+}
+.btn-success{
+  background:#16a34a;
+  color:#fff;
+  padding:12px 18px;
+  border:none;
+  border-radius:8px;
+}
+</style>
+
+<div class="card">
+<h3>✏️ Edit Student</h3>
+
+<form method="post">
+{% csrf_token %}
+
+<!-- READ ONLY INFO -->
+<div class="form-group">
+  <label>Student Name</label>
+  <input type="text" value="{{ student.first_name }} {{ student.surname }}" class="readonly" readonly>
+</div>
+
+<div class="form-group">
+  <label>Student ID</label>
+  <input type="text" value="{{ student.student_id }}" class="readonly" readonly>
+</div>
+
+<div class="form-group">
+  <label>Aadhaar</label>
+  <input type="text" value="{{ student.aadhaar }}" class="readonly" readonly>
+</div>
+
+<hr>
+
+<!-- EDITABLE FIELDS -->
+<div class="form-group">
+  <label class="required">GRN</label>
+  <input type="text" name="register_no" value="{{ student.register_no }}" required>
+</div>
+
+<div class="form-group">
+  <label class="required">Class</label>
+  <select name="admission_std" required>
+    <option value="5" {% if student.admission_std == "5" %}selected{% endif %}>5th</option>
+    <option value="6" {% if student.admission_std == "6" %}selected{% endif %}>6th</option>
+    <option value="7" {% if student.admission_std == "7" %}selected{% endif %}>7th</option>
+    <option value="8" {% if student.admission_std == "8" %}selected{% endif %}>8th</option>
+    <option value="9" {% if student.admission_std == "9" %}selected{% endif %}>9th</option>
+    <option value="10" {% if student.admission_std == "10" %}selected{% endif %}>10th</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label class="required">Last School Attended</label>
+  <input type="text" name="last_school" value="{{ student.last_school }}" required>
+</div>
+
+<div class="form-group">
+  <label>Reason of Leaving School</label>
+  <input type="text" name="reason_of_leaving" value="{{ student.reason_of_leaving }}">
+</div>
+
+<div class="form-group">
+  <label>Remark</label>
+  <textarea name="remark">{{ student.remark }}</textarea>
+</div>
+
+<button type="submit" class="btn-success">
+  💾 Update Student
+</button>
+
+</form>
+</div>
+
+{% endblock %}

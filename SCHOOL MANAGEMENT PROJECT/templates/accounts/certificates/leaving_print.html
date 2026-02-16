@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaving Certificate</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 20px;
+        }
+
+        .result-border {
+            border: 2px solid black;
+            padding: 20px;
+        }
+
+        @page {
+            size: A4;
+            margin: 10mm;
+        }
+
+        .school-header-box {
+    border: 2px solid #050404;
+    padding: 10px;
+    margin: 10px;
+    background: none !important;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+}
+
+  .result-border {
+    background: white;
+    padding: 20px; 
+    border-radius: 15px;
+    border: 2px solid black;
+    box-shadow: none !important;
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+h1, h3 {
+    color: white;
+    text-shadow: 1px 1px 3px black;
+}
+
+h2 {
+    color: black;
+    text-shadow: 1px 1px 3px black;
+    text-align: center;
+}
+
+.Father_N{
+    margin-left: 111px;
+}
+
+.Surname{
+    margin-left: 150px;
+}
+
+.Mother_N{
+    margin-left: 105px;
+}
+    </style>
+</head>
+<body onload="window.print()">
+{% load date_words %}
+<div class="no-print center" id="step3">
+<!-- <h2>🎓 Student Leaving Certificate </h2><br> -->
+    <!-- FULL LC CONTENT AS IT IS -->
+<div class="result-container" style="background: white; padding: 2px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.2); width: 100%; max-width: 800px; margin: 5px auto;" >
+    <div class="result-border">
+
+        <div class="school-header-box">
+            Jay Malhar Shikshan Prasarak Mandal's<br>
+            <strong> {{ student.school.name }}</strong>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin: 10px 0; font-size: 16px;">
+            <span><strong>L. Certificate No:</strong> ____ </span>
+            <span><strong>Board:</strong> State Board</span>
+            <span><strong>General Register No:</strong> {{ student.register_no }} </span>
+        </div>
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin: 10px 0;font-size: 16px;">
+            <span style="text-align: left;"><strong>UDISE NO.:</strong> 27010112002</span>
+            <span style="text-align: center;"><strong>Medium:</strong> Marathi</span>
+            <span style="text-align: right;"><strong>Index No:</strong> S-1903032</span>
+        </div>
+
+        <hr>
+        <h2 style="margin: 10px 0; font-size: 22px; text-transform: uppercase;">SCHOOL LEAVING CERTIFICATE</h2>
+        <hr>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin: 10px 0; font-size: 16px;">
+            <span><strong>Student Id:</strong> {{student.student_id}}</span>
+            <span><strong>UID (Aadhaar Card No):</strong> {{student.aadhaar}}</span>
+        </div>
+
+        <hr>
+        <div style="margin: 20px 0; text-align: left; font-size: 15px;">
+            <span><strong>Name of Student (First Name) : </strong> {{student.first_name}}</span><br>
+            <span class="Father_N"><strong>Father's Name : </strong> {{student.father_name}}</span><br>
+            <span class="Surname"><strong>Surname : </strong> {{student.surname}}</span><br>
+            <span class="Mother_N"><strong>Mother's Name : </strong> {{student.mother_name}}</span>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; margin: 10px 0; font-size: 16px;">
+                <span><strong>Nationality : </strong> Indian </span>
+                <span><strong>Mother Tongue : </strong> Marathi</span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin: 10px 0; font-size: 16px;">
+                <span><strong>Religion : </strong>{{student.religion}}</span>
+                <span><strong>Caste : </strong> {{student.caste}} </span>
+                <span><strong>Sub-Caste : </strong> _______ </span>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; margin: 10px 0; font-size: 16px;">
+                <span><strong>Place of Birth:</strong> {{student.birth_place}} </span>
+                <span><strong>Taluka:</strong> {{student.taluka}} </span>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; margin: 10px 0; font-size: 16px;">
+                <span><strong>District:</strong> {{student.district}} </span>
+                <span><strong>State:</strong> Maharashtra </span>
+                <span><strong>Country:</strong> India </span>
+            </div>
+            
+            <div style="margin: 10px 0; font-size: 16px;">
+                <span><strong>Date of Birth:</strong> {{ student.dob|date:"d/m/Y" }} </span><br><br>
+                <span><strong>Date of Birth (in words):</strong> {{ student.dob|date_in_words }} </span>
+            </div><hr>
+            
+            <div style="display: flex; justify-content: space-between; margin: 10px 0; font-size: 16px;">
+                <span><strong> Last School Attended :</strong> {{student.last_std}} </span>
+                <span><strong>STD :</strong> {{student.last_school}} <sup>th</sup></span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; margin: 10px 0; font-size: 16px;">
+                <span><strong>Date of Admission in this School:</strong> {{ student.admission_date|date:"d/m/Y" }} </span>
+                <span><strong>STD:</strong> {{student.admission_std}} <sup>th</sup></span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; margin: 10px 0; font-size: 16px;">
+                <span><strong>Progress:</strong> Good </span>
+                <span><strong>Conduct:</strong> Good </span>
+            </div>
+
+            <div style="margin: 10px 0; font-size: 16px;">
+                <span><strong>Date of Leaving School:</strong> {{ student.leaving_date|date:"d/m/Y" }} </span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; margin: 10px 0; font-size: 16px;">
+                <span><strong>Standard in which studying and since when</strong></span>
+                <span><strong>STD:</strong> X <sup>th</sup></span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; margin: 10px 0; font-size: 12.5px;">
+                <strong>(In word and figure): std.Tenth since june two thousand twenty four</strong>
+                <span><strong>Since:</strong> June-2025</span>
+            </div>
+
+            <div style="margin: 10px 0; font-size: 16px;">
+                <strong>Reason of Leaving School :</strong> Guardin's request <br>
+                <strong>Remark :</strong> {{student.remark}}
+            </div><hr>
+
+            <div style="margin: 20px 0; font-size: 15px;">
+                <strong>Certified that the above information is in accordance with the school General Register No. :</strong> __<br><br>
+                <strong> Date: {% now "d-m-Y" %} </strong>
+            </div><br>
+
+            <div style="display: flex; justify-content: space-between; margin: 20px 0; font-size: 12px;">
+                <span>Jr./Sr. Clerk</span>
+                <span>Class Teacher</span>
+                <span>Head Master / Principal</span>
+            </div>
+
+            <hr>
+            <div style="margin: 8px 0; font-size: 7px; text-align: justify;">
+                <strong>
+                    No change in any entry in this certificate shall be made except by the authority issuing it and any infringement of this requirement is liable to involve imposition of penalty such as that of rustication.
+                </strong>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+</div>
+
+</body>
+</html>

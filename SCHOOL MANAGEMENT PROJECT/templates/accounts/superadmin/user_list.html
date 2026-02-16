@@ -1,0 +1,124 @@
+{% extends "accounts/superadmin/base_superadmin.html" %}
+
+{% block content %}
+<style>
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+}
+
+th {
+    background: #f9fafb;
+    font-weight: 600;
+}
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.badge-admin { background: #e0f2fe; color: #0369a1; }
+.badge-teacher { background: #dcfce7; color: #166534; }
+.badge-clerk { background: #fef3c7; color: #92400e; }
+.badge-super { background: #fee2e2; color: #991b1b; }
+
+.action-btn {
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    text-decoration: none;
+    margin-right: 5px;
+}
+
+.edit { background: #2563eb; color: #fff; }
+.delete { background: #dc2626; color: #fff; }
+
+.form-control {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+}
+
+</style>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container mt-4">
+  <h3>👥 Users List</h3>
+
+  <form method="get" class="row g-2 mb-3">
+
+    <div class="col-md-3">
+      <input type="text" name="q" class="form-control" placeholder="Search username">
+    </div>
+
+    <div class="col-md-3">
+      <select name="role" class="form-select">
+        <option value="">All Roles</option>
+        <option value="ADMIN">Admin</option>
+        <option value="TEACHER">Teacher</option>
+        <option value="PRINCIPAL">Principal</option>
+      </select>
+    </div>
+
+    <div class="col-md-3">
+      <select name="school" class="form-select">
+        <option value="">All Schools</option>
+        {% for school in schools %}
+          <option value="{{ school.id }}">{{ school.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-md-3 d-flex gap-2">
+      <button class="btn btn-primary w-50">Search</button>
+      <a href="{% url 'user_list' %}" class="btn btn-secondary w-50">Reset</a>
+    </div>
+  </form>
+
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Role</th>
+        <th>School</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>
+          <span class="badge bg-success">{{ user.role }}</span>
+        </td>
+        <td>{{ user.school.name|default:"-" }}</td>
+        <td>
+          <a href="{% url 'edit_user' user.id %}" class="btn btn-sm btn-warning">Edit</a>
+          <a href="{% url 'delete_user' user.id %}"
+             onclick="return confirm('Delete user?')"
+             class="btn btn-sm btn-danger">
+             Delete
+          </a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="5" class="text-center">No users found</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

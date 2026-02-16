@@ -1,0 +1,176 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Admin Panel{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+    {% if messages %}
+<div id="msg-box" style="
+    position:fixed;
+    top:20px;
+    right:20px;
+    z-index:9999;
+">
+  {% for message in messages %}
+    <div style="
+      background:#16a34a;
+      color:white;
+      padding:12px 18px;
+      margin-bottom:10px;
+      border-radius:8px;
+      box-shadow:0 4px 12px rgba(0,0,0,.2);
+    ">
+      {{ message }}
+    </div>
+  {% endfor %}
+</div>
+
+<script>
+  setTimeout(()=>{
+    const box = document.getElementById("msg-box");
+    if(box){ box.style.display="none"; }
+  },3000);  // ⏱️ 3 seconds hide
+</script>
+{% endif %}
+
+    <style>
+        .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 28px;
+    background: linear-gradient(90deg, #1e293b, #0f172a);
+    border-radius: 14px;
+    margin-bottom: 24px;
+}
+
+.school-title {
+    font-size: 26px;      /* 👈 BIG & CLEAR */
+    font-weight: 800;
+    color: #f8fafc;
+    letter-spacing: 0.5px;
+}
+
+.user-role {
+    font-size: 14px;
+    font-weight: 600;
+    color: #e5e7eb;
+    background: rgba(255,255,255,0.1);
+    padding: 6px 14px;
+    border-radius: 20px;
+}
+
+.menu li {
+    list-style: none;
+    margin-bottom: 6px;
+}
+
+.menu li a,
+.menu li span {
+    display: block;
+    padding: 12px 16px;
+    color: #e5e7eb;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.menu li a:hover,
+.menu li span:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+/* ===== DROPDOWN ===== */
+.dropdown .submenu {
+    display: none;
+    padding-left: 18px;
+    margin-top: 6px;
+}
+
+.dropdown:hover .submenu {
+    display: block;
+}
+
+.submenu li a {
+    font-size: 14px;
+    padding: 8px 14px;
+    color: #cbd5f5;
+}
+
+.alert {
+  background: #dcfce7;
+  color: #166534;
+  padding: 14px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+</style>
+
+<div class="layout">
+
+    <!-- ===== SIDEBAR ===== -->
+    <div class="sidebar">
+        <div class="logo">
+            🏫 <span>School Admin</span>
+        </div>
+            <ul class="menu">
+                    <li>
+                        <a href="{% url 'admin_dashboard' %}">📊 Dashboard</a>
+                    </li>
+                    <!-- ===== STUDENTS ===== -->
+                    <li class="dropdown">
+                        <span>🎓 Students</span>
+                    <ul class="submenu">
+                        <li><a href="{% url 'add_student' %}">➕ Add Student</a></li>
+                        <li><a href="{% url 'student_list' %}">📋 View Students</a></li>
+                    </ul>
+                </li>
+                <!-- ===== TEACHERS ===== -->
+                <li class="dropdown">
+                    <span>👨‍🏫 Teachers</span>
+                <ul class="submenu">
+                    <li><a href="{% url 'add_teacher' %}">➕ Add Teacher</a></li>
+                    <li><a href="{% url 'teacher_list' %}">📋 View Teachers</a></li>
+                </ul>
+            </li>
+
+            <!-- ===== CERTIFICATES ===== -->
+            <li class="dropdown">
+                <span>📄 Certificates</span>
+                    <ul class="submenu">
+                        <li><a href="{% url 'bonafide_certificate' %}">📄 Bonafide</a></li>
+                        <li><a href="{% url 'leaving_certificate' %}">📄 Leaving Certificate</a></li>
+                    </ul>
+                        </li>
+                        <li class="logout">
+                <a href="{% url 'logout' %}">🚪 Logout</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+        <section class="content">
+            {% block content %}{% endblock %}
+        </section>
+        
+    </main>
+
+</div>
+<script>
+  setTimeout(function () {
+    const msg = document.getElementById("alert-msg");
+    if (msg) {
+      msg.style.display = "none";
+    }
+  }, 3000); // 3 seconds
+</script>
+</body>
+</html>

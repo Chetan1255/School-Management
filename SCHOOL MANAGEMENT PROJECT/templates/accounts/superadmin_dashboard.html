@@ -1,0 +1,45 @@
+{% extends "accounts/base_superadmin.html" %}
+
+{% block content %}
+
+<h1>Welcome Super Admin 👑</h1>
+
+<hr>
+
+<h2>🏫 Schools</h2>
+<table border="1" cellpadding="10">
+<tr>
+    <th>Name</th>
+    <th>Code</th>
+    <th>Status</th>
+</tr>
+{% for school in schools %}
+<tr>
+    <td>{{ school.name }}</td>
+    <td>{{ school.code }}</td>
+    <td>
+        {% if school.is_active %}✅ Active{% else %}❌ Inactive{% endif %}
+    </td>
+</tr>
+{% endfor %}
+</table>
+
+<hr>
+
+<h2>👤 Users</h2>
+<table border="1" cellpadding="10">
+<tr>
+    <th>Username</th>
+    <th>Role</th>
+    <th>School</th>
+</tr>
+{% for user in users %}
+<tr>
+    <td>{{ user.username }}</td>
+    <td>{{ user.role }}</td>
+    <td>{{ user.school }}</td>
+</tr>
+{% endfor %}
+</table>
+
+{% endblock %}

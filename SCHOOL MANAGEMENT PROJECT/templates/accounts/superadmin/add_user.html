@@ -1,0 +1,78 @@
+{% extends "accounts/superadmin/base_superadmin.html" %}
+
+{% block content %}
+<style>
+.add-user-container {
+    max-width: 450px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.add-user-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+}
+
+.btn-submit {
+    width: 100%;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+</style>
+
+<div class="add-user-container">
+    <h2>➕ Add User</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label>Username</label>
+            <input name="username" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label>Role</label>
+            <select name="role" class="form-control" required>
+                <option value="SUPER_ADMIN">SUPER_ADMIN</option>
+                <option value="TEACHER">Teacher</option>
+                <option value="Admin">Admin</option>
+            </select>
+        </div>
+
+        <button class="btn-submit">Create User</button>
+    </form>
+</div>
+{% endblock %}

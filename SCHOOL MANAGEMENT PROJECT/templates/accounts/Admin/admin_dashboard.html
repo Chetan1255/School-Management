@@ -1,0 +1,143 @@
+{% extends "accounts/base_admin.html" %}
+{% block content %}
+
+<style>
+.dashboard-container {
+    padding: 30px;
+}
+
+.cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.card-box {
+    flex: 1;
+    min-width: 220px;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.card-box h4 {
+    margin-bottom: 10px;
+    color: #64748b;
+}
+
+.card-box h2 {
+    font-size: 28px;
+    color: #1e293b;
+}
+
+.chart-card {
+    width: 450px;
+    margin: auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    text-align: center;
+}
+.School_header{
+    background-color: #64748b;
+    border-radius: 15px;
+    position: fixed;
+    margin-left: -30px;
+    margin-top: -43px;
+    padding: 15px;
+    width: 80%;
+    font-size: 25px;
+
+}
+</style>
+
+<div class="School_header">
+    <strong>🏫 {{ request.user.school.name }}</strong>
+</div>
+<div class="dashboard-container">
+
+    <!-- Cards -->
+    <div class="cards">
+
+        <div class="card-box">
+            <h4>Total Students</h4>
+            <h2>{{ total_students }}</h2>
+        </div>
+
+        <div class="card-box">
+            <h4>Total Teachers</h4>
+            <h2>{{ total_teachers }}</h2>
+        </div>
+
+        <div class="card-box">
+            <h4>Issued LC</h4>
+            <h2>{{ total_lc }}</h2>
+        </div>
+
+    </div>
+
+    <!-- Hidden Data -->
+    <div id="chart-data"
+         data-students="{{ total_students }}"
+         data-teachers="{{ total_teachers }}"
+         data-lc="{{ total_lc }}">
+    </div>
+
+    <!-- Clean Doughnut Chart -->
+    <div class="chart-card">
+        <h3 style="margin-bottom:20px;">School Overview</h3>
+        <canvas id="pieChart"></canvas>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const chartData = document.getElementById("chart-data");
+
+const totalStudents = parseInt(chartData.dataset.students);
+const totalTeachers = parseInt(chartData.dataset.teachers);
+const totalLC = parseInt(chartData.dataset.lc);
+
+new Chart(document.getElementById('pieChart'), {
+    type: 'doughnut',
+    data: {
+        labels: ['Students', 'Teachers', 'Issued LC'],
+        datasets: [{
+            data: [totalStudents, totalTeachers, totalLC],
+            backgroundColor: [
+                '#3b82f6',
+                '#22c55e',
+                '#ef4444'
+            ],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        responsive: true,
+        cutout: '65%',
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    padding: 20,
+                    boxWidth: 15,
+                    font: {
+                        size: 14
+                    }
+                }
+            }
+        },
+        animation: {
+            animateScale: true
+        }
+    }
+});
+</script>
+
+{% endblock %}

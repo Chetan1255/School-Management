@@ -1,0 +1,31 @@
+{% extends "accounts/base_admin.html" %}
+{% block content %}
+
+<div class="container text-center mt-5">
+
+    <h2>LC Payment</h2>
+
+    <div style="max-width:400px; margin:auto; border:1px solid #ddd; padding:25px; border-radius:10px;">
+        
+        <p><strong>Student ID :</strong> {{ student_id }}</p>
+        <p><strong>Total LC :</strong> {{ lc }}</p>
+        <p><strong>Amount :</strong> ₹ {{ amount }}</p>
+
+        <br>
+
+        <!-- Demo payment success -->
+        <a href="{% url 'leaving_print' student_id %}" class="btn btn-success w-100">
+            Pay Now
+        </a>
+
+        <br><br>
+
+        <a href="{% url 'leaving_certificate' %}" class="btn btn-secondary w-100">
+            Cancel
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

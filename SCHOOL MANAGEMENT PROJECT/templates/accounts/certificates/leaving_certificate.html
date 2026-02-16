@@ -1,0 +1,69 @@
+{% extends "accounts/base_admin.html" %}
+{% block content %}
+
+<style>
+
+/*******************************************************/
+.step-box{
+  max-width:700px;
+  margin:30px auto;
+  background:#fff;
+  padding:30px;
+  border-radius:14px;
+  box-shadow:0 12px 30px rgba(0,0,0,.1);
+}
+
+.form-control {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+}
+</style>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="step-box">
+
+{% if not std %}
+<form method="get">
+  <label>Select Class</label>
+<select name="std" required class="form-select">
+    <option value="">-- Select Class --</option>
+    <option value="I">I</option> 
+    <option value="II">II</option>
+    <option value="III">III</option>
+    <option value="IV">IV</option>
+    <option value="V">V</option>
+    <option value="VI">VI</option>
+    <option value="VII">VII</option>
+    <option value="VIII">VIII</option>
+    <option value="IX">IX</option>
+    <option value="X">X</option>
+</select>
+
+  <br><br>
+  <button class="btn btn-primary w-25">Next →</button>
+</form>
+{% endif %}
+
+<!-- STEP 2 -->
+{% if std and not student %}
+<form method="get">
+<input type="hidden" name="std" value="{{ std }}">
+
+<label>Search Register No (GRN)</label>
+<input type="text" name="grn" required class="form-control" placeholder="Enter Student GRN">
+
+<br><br>
+        <a href="{% url 'leaving_certificate' %}" class="btn btn-primary">⬅ Back</a>
+        <button class="btn btn-success">Search Student ➡</button>
+    </form>
+{% endif %}
+{% if student %}
+    <a href="{% url 'leaving_print' student.id %}"target="_blank"class="btn btn-success">🖨 Print</a>
+{% endif %}
+
+</div>
+</div>
+
+{% endblock %}

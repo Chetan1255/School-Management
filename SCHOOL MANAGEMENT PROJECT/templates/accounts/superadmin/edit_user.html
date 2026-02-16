@@ -1,0 +1,129 @@
+{% extends "accounts/superadmin/base_superadmin.html" %}
+{% block content %}
+
+<style>
+.page-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+}
+
+.form-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 600px;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+.form-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 22px;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 25px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #334155;
+}
+
+.form-group input,
+.form-group select {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    font-size: 14px;
+}
+
+.btn-primary {
+    margin-top: 25px;
+    padding: 12px;
+    width: 100%;
+    background: #2563eb;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+}
+
+@media (max-width: 600px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<div class="page-wrapper">
+    <div class="form-card">
+
+        <div class="form-title">✏️ Edit User</div>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="form-grid">
+
+                <!-- USERNAME -->
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" name="username"value="{{ user.username }}" required>
+                </div><br>
+
+                <!-- ROLE -->
+                <div class="form-group">
+                    <label>Role</label>
+                    <select name="role" required>
+                        <option value="ADMIN"{% if edit_user.role == "ADMIN" %}selected{% endif %}>Admin</option>
+
+                        <option value="TEACHER"{% if edit_user.role == "TEACHER" %}selected{% endif %}>Teacher</option>
+
+                        <option value="PRINCIPAL"  {% if edit_user.role == "PRINCIPAL" %}selected{% endif %}>Principal</option>
+                    </select>
+                </div><br>
+
+                <!-- SCHOOL -->
+                <div class="form-group">
+                    <label>School</label>
+                    <select name="school">
+                        <option value="">-- None --</option>
+
+                        {% for school in schools %}
+                        <option value="{{ school.id }}"
+                          {% if edit_user.school and edit_user.school.id == school.id %}
+                              selected
+                          {% endif %}>
+                          {{ school.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+            </div>
+
+            <button type="submit" class="btn-primary">
+                💾 Update User
+            </button>
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}

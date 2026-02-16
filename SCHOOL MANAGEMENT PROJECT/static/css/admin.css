@@ -1,0 +1,157 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    background: #f4f6f9;
+    overflow-x: hidden;
+}
+
+/* ===== LAYOUT ===== */
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    position: fixed;      /* 🔥 ADD THIS */
+    top: 0;               /* 🔥 ADD THIS */
+    left: 0;              /* 🔥 ADD THIS */
+    height: 100vh;        /* 🔥 ADD THIS */
+    width: 240px;
+    background: linear-gradient(180deg, #1e293b, #0f172a);
+    color: #fff;
+    padding: 20px;
+    overflow-y: auto;     /* menu जास्त असेल तर आत scroll */
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.logo span {
+    margin-left: 8px;
+}
+
+.menu {
+    list-style: none;
+}
+
+.menu li {
+    margin-bottom: 10px;
+}
+
+.menu li a {
+    display: block;
+    padding: 12px 15px;
+    color: #e5e7eb;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.menu li a:hover {
+    background: #2563eb;
+    color: #fff;
+}
+
+.menu li.logout a {
+    background: #dc2626;
+}
+
+.menu li.logout a:hover {
+    background: #b91c1c;
+}
+
+/* ===== MAIN ===== */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    margin-left: 240px;   /* 🔥 ADD THIS */
+}
+
+/* ===== TOPBAR ===== */
+.topbar {
+    background: #fff;
+    padding: 15px 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.topbar h2 {
+    font-size: 22px;
+}
+
+.topbar .user {
+    font-weight: 500;
+    color: #334155;
+}
+
+/* ===== CONTENT ===== */
+.content {
+    background: transparent;   /* ❗ white remove */
+    padding: 25px;
+    border-radius: 0;          /* optional */
+    box-shadow: none;          /* optional */
+}
+
+
+/* ===== TABLE ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+}
+
+table th {
+    background: #f1f5f9;
+    font-weight: 600;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.btn-edit {
+    background: #2563eb;
+}
+
+.btn-delete {
+    background: #dc2626;
+}
+
+/* ===== BADGE ===== */
+.badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #fff;
+}
+
+.badge-teacher {
+    background: #22c55e;
+}
+
+.badge-admin {
+    background: #0ea5e9;
+}
